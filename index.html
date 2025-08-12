@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toolverse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    .intro {
+      padding: 2rem;
+      text-align: center;
+    }
+    .tools {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1rem;
+      width: 200px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Toolverse</h1>
+  </header>
+  <div class="intro">
+    <p>A collection of useful web-based calculators and tools.</p>
+  </div>
+  <div class="tools">
+    <div class="card">
+      <a href="basic.html">🧮 Basic Calculator</a>
+    </div>
+    <div class="card">
+      <a href="age.html">🎂 Age Calculator</a>
+    </div>
+    <div class="card">
+      <a href="bmi.html">⚖️ BMI Calculator</a>
+    </div>
+    <div class="card">
+      <a href="loan.html">💰 Loan Calculator</a>
+    </div>
+  </div>
+</body>
+</html>
