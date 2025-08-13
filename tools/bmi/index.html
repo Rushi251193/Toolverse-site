@@ -12,6 +12,7 @@
     <button onclick="calculateBMI()">Calculate</button>
 
     <h2 id="result"></h2>
+    <h3 id="category"></h3>
 
     <script>
         function calculateBMI() {
@@ -20,11 +21,26 @@
 
             if (height > 0 && weight > 0) {
                 let bmi = weight / ((height / 100) ** 2);
-                document.getElementById("result").innerText = "Your BMI is " + bmi.toFixed(2);
+                bmi = bmi.toFixed(2);
+                document.getElementById("result").innerText = "Your BMI is: " + bmi;
+
+                let category = "";
+                if (bmi < 18.5) {
+                    category = "Underweight - You are below the normal weight range.";
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    category = "Normal weight - Your weight is normal.";
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    category = "Overweight - You are above the normal weight range.";
+                } else {
+                    category = "Obese - You are significantly overweight, please take care.";
+                }
+
+                document.getElementById("category").innerText = category;
             } else {
-                document.getElementById("result").innerText = "Please enter valid numbers!";
+                alert("Please enter valid height and weight.");
             }
         }
     </script>
 </body>
 </html>
+
