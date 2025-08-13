@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Percentage Calculator - Toolverse</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: #00ffe7;
+      text-align: center;
+      overflow: hidden;
+    }
+    .calculator {
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffe7;
+      width: 320px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px #00ffe7; }
+      100% { box-shadow: 0 0 30px #00ffe7; }
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      background: #001f29;
+      color: #00ffe7;
+      box-shadow: inset 0 0 5px #00ffe7;
+      transition: box-shadow 0.3s ease;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      box-shadow: 0 0 15px #00fff7;
+      background: #003347;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: #00ffe7;
+      border: none;
+      border-radius: 10px;
+      color: #002f38;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00b3a7;
+    }
+    .result {
+      margin-top: 25px;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h2>Percentage Calculator</h2>
+    <input type="number" id="part" placeholder="Part" />
+    <input type="number" id="total" placeholder="Total" />
+    <button onclick="calculatePercentage()">Calculate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      const part = parseFloat(document.getElementById('part').value);
+      const total = parseFloat(document.getElementById('total').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(part) || isNaN(total) || total === 0) {
+        resultDiv.textContent = "Please enter valid numbers and total must not be zero.";
+        resultDiv.style.color = '#ff0044';
+        return;
+      }
+
+      const percentage = (part / total) * 100;
+      resultDiv.textContent = `Your percentage is: ${percentage.toFixed(2)}%`;
+      resultDiv.style.color = '#00ffe7';
+    }
+  </script>
+</body>
+</html>
