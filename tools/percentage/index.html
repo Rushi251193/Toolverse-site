@@ -3,28 +3,129 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Percentage Calculator - Toolverse</title>
+  <title>Percentage Calculator</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
     body {
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      font-family: 'Orbitron', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      color: #00ffe7;
+      font-family: Arial, sans-serif;
+      background-color: #dff1fc;
+      padding: 20px;
+      color: #222;
+    }
+
+    h1 {
       text-align: center;
-      overflow: hidden;
+      margin-bottom: 0.3em;
     }
-    .calculator {
-      background: rgba(0,0,0,0.6);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00ffe7;
-      width: 320px;
-      animation: glow 2s ease-in-out infinite alternate;
+
+    p.description {
+      text-align: center;
+      margin-bottom: 2em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1rem;
+      color: #444;
     }
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #00ffe7; }
+
+    .calculator-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1.5em;
+    }
+
+    .calculator, .info {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      flex: 1;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+    }
+
+    button {
+      margin-top: 1.5em;
+      padding: 12px 25px;
+      background: #0a74da;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      font-size: 1.1rem;
+    }
+
+    button:hover {
+      background-color: #075ba4;
+    }
+
+    .result {
+      margin-top: 1.5em;
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      color: #0a74da;
+      min-height: 2em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Percentage Calculator</h1>
+  <p class="description">Calculate the percentage value of any number quickly and easily.</p>
+
+  <div class="calculator-wrapper">
+    <div class="calculator">
+      <label for="numberInput">Enter Number</label>
+      <input type="number" id="numberInput" placeholder="Enter the base number" />
+
+      <label for="percentageInput">Enter Percentage (%)</label>
+      <input type="number" id="percentageInput" placeholder="Enter percentage" />
+
+      <button onclick="calculatePercentage()">Calculate</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="info">
+      <h2>How it works</h2>
+      <p>To find a percentage of a number, multiply the number by the percentage, then divide by 100.</p>
+      <p><strong>Formula:</strong> <em>(Number × Percentage) ÷ 100</em></p>
+      <p>Example: 20% of 200 = (200 × 20) ÷ 100 = 40</p>
+    </div>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      const number = parseFloat(document.getElementById('numberInput').value);
+      const percentage = parseFloat(document.getElementById('percentageInput').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(number) || isNaN(percentage)) {
+        resultDiv.textContent = "Please enter valid numbers in both fields.";
+        return;
+      }
+
+      const result = (number * percentage) / 100;
+      resultDiv.textContent = `${percentage}% of ${number} is ${result.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
