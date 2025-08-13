@@ -1,46 +1,277 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaf6fd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .description {
+            text-align: center;
+            padding: 0 20px 30px;
+            color: #333;
+        }
+
+        .card {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .card h2 {
+            background: linear-gradient(to right, #004d7a, #008793);
+            color: white;
+            padding: 10px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px;
+            font-size: 18px;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: white;
+            font-weight: bold;
+        }
+
+        .tab.active {
+            background-color: #00798c;
+            color: white;
+            border-color: #00798c;
+        }
+
+        .inputs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .inputs div {
+            flex: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #00798c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005f6b;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #003d66;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>BMI Calculator</h1>
-    <p>Enter your height (in cm) and weight (in kg):</p>
 
-    <input type="number" id="height" placeholder="Height in cm">
-    <input type="number" id="weight" placeholder="Weight in kg">
-    <button onclick="calculateBMI()">Calculate</button>
+<h1>Calculate Your BMI</h1>
+<p class="description">
+    Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women.
+    Your BMI is just one piece of the puzzle. It doesn’t take into account muscle mass, bone density, or body composition.
+</p>
 
-    <h2 id="result"></h2>
-    <h3 id="category"></h3>
+<div class="container">
+    <!-- BMI Calculator Card -->
+    <div class="card">
+        <h2>BMI CALCULATOR</h2>
 
-    <script>
-        function calculateBMI() {
-            let height = document.getElementById("height").value;
-            let weight = document.getElementById("weight").value;
+        <div class="tabs">
+            <div class="tab active" id="standardTab" onclick="switchTab('standard')">Standard</div>
+            <div class="tab" id="metricTab" onclick="switchTab('metric')">Metric</div>
+        </div>
 
-            if (height > 0 && weight > 0) {
-                let bmi = weight / ((height / 100) ** 2);
-                bmi = bmi.toFixed(2);
-                document.getElementById("result").innerText = "Your BMI is: " + bmi;
+        <div id="standardInputs">
+            <div class="inputs">
+                <div>
+                    <label>Feet</label>
+                    <input type="number" id="feet" min="0">
+                </div>
+                <div>
+                    <label>Inches</label>
+                    <input type="number" id="inches" min="0">
+                </div>
+                <div>
+                    <label>Pounds</label>
+                    <input type="number" id="pounds" min="0">
+                </div>
+            </div>
+        </div>
 
-                let category = "";
-                if (bmi < 18.5) {
-                    category = "Underweight - You are below the normal weight range.";
-                } else if (bmi >= 18.5 && bmi < 24.9) {
-                    category = "Normal weight - Your weight is normal.";
-                } else if (bmi >= 25 && bmi < 29.9) {
-                    category = "Overweight - You are above the normal weight range.";
-                } else {
-                    category = "Obese - You are significantly overweight, please take care.";
-                }
+        <div id="metricInputs" style="display: none;">
+            <div class="inputs">
+                <div>
+                    <label>Height (cm)</label>
+                    <input type="number" id="heightCm" min="0">
+                </div>
+                <div>
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weightKg" min="0">
+                </div>
+            </div>
+        </div>
 
-                document.getElementById("category").innerText = category;
-            } else {
-                alert("Please enter valid height and weight.");
-            }
+        <button onclick="calculateBMI()">Calculate Your BMI</button>
+
+        <div class="result" id="bmiResult"></div>
+        <div class="result" id="bmiCategory"></div>
+    </div>
+
+    <!-- BMI Categories Table -->
+    <div class="card">
+        <h2>BMI CATEGORIES</h2>
+        <table>
+            <tr>
+                <th>BMI Category</th>
+                <th>BMI Range</th>
+            </tr>
+            <tr>
+                <td>Underweight</td>
+                <td>Below 18.5</td>
+            </tr>
+            <tr>
+                <td>Healthy</td>
+                <td>18.5 – 24.9</td>
+            </tr>
+            <tr>
+                <td>Overweight</td>
+                <td>25.0 – 29.9</td>
+            </tr>
+            <tr>
+                <td>Obesity</td>
+                <td>30.0 or above</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    function switchTab(mode) {
+        if (mode === 'standard') {
+            document.getElementById("standardTab").classList.add("active");
+            document.getElementById("metricTab").classList.remove("active");
+            document.getElementById("standardInputs").style.display = "block";
+            document.getElementById("metricInputs").style.display = "none";
+        } else {
+            document.getElementById("metricTab").classList.add("active");
+            document.getElementById("standardTab").classList.remove("active");
+            document.getElementById("metricInputs").style.display = "block";
+            document.getElementById("standardInputs").style.display = "none";
         }
-    </script>
+
+        // Clear result on tab switch
+        document.getElementById("bmiResult").innerText = "";
+        document.getElementById("bmiCategory").innerText = "";
+    }
+
+    function calculateBMI() {
+        let bmi = 0;
+
+        if (document.getElementById("standardTab").classList.contains("active")) {
+            // Standard - feet/inches and pounds
+            let feet = parseFloat(document.getElementById("feet").value);
+            let inches = parseFloat(document.getElementById("inches").value);
+            let pounds = parseFloat(document.getElementById("pounds").value);
+
+            if (isNaN(feet) || isNaN(inches) || isNaN(pounds) || feet < 0 || inches < 0 || pounds <= 0) {
+                alert("Please enter valid height and weight.");
+                return;
+            }
+
+            let totalInches = (feet * 12) + inches;
+            bmi = (pounds / (totalInches ** 2)) * 703;
+        } else {
+            // Metric - cm and kg
+            let heightCm = parseFloat(document.getElementById("heightCm").value);
+            let weightKg = parseFloat(document.getElementById("weightKg").value);
+
+            if (isNaN(heightCm) || isNaN(weightKg) || heightCm <= 0 || weightKg <= 0) {
+                alert("Please enter valid height and weight.");
+                return;
+            }
+
+            let heightM = heightCm / 100;
+            bmi = weightKg / (heightM ** 2);
+        }
+
+        bmi = bmi.toFixed(2);
+        document.getElementById("bmiResult").innerText = "Your BMI is: " + bmi;
+
+        let category = "";
+        if (bmi < 18.5) {
+            category = "Underweight - Below normal weight range.";
+        } else if (bmi >= 18.5 && bmi < 25) {
+            category = "Healthy - Normal weight.";
+        } else if (bmi >= 25 && bmi < 30) {
+            category = "Overweight - Above normal weight range.";
+        } else {
+            category = "Obese - Significantly overweight.";
+        }
+
+        document.getElementById("bmiCategory").innerText = category;
+    }
+</script>
+
 </body>
 </html>
-
