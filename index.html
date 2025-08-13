@@ -5,241 +5,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Toolverse</title>
   
-  <!-- Favicon -->
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4974/4974983.png" type="image/png">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   
-  <!-- Font Awesome Icons -->
+  <!-- Icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- Particles.js -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
-  <!-- Barba.js -->
-  <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    html, body {
-      font-family: 'Roboto', sans-serif;
-      background: #0f2027;
-      color: #fff;
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
       min-height: 100vh;
-      transition: background 0.5s, color 0.5s;
-    }
-
-    body.light-mode {
-      background: #f0f0f0;
-      color: #000;
-    }
-
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
     }
 
     header {
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
       padding: 2rem 1rem;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      background-color: #161b22;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
     header h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 2.5rem;
-      color: #00eaff;
-      text-shadow: 0 0 10px rgba(0,234,255,0.6);
-    }
-
-    .mode-toggle {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: transparent;
-      border: 2px solid #00eaff;
-      color: #00eaff;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    .mode-toggle:hover {
-      background: #00eaff;
-      color: #000;
+      font-size: 2.2rem;
+      color: #58a6ff;
     }
 
     .intro {
       text-align: center;
-      padding: 2rem 1rem;
-      font-size: 1.2rem;
+      padding: 1.5rem 1rem;
+      font-size: 1.1rem;
+      color: #8b949e;
     }
 
     .tools {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
       padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-      padding: 2rem;
-      width: 220px;
+      background-color: #161b22;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border: 1px solid #30363d;
       text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      backdrop-filter: blur(15px);
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
     .card:hover {
-      transform: translateY(-8px) scale(1.05);
-      box-shadow: 0 12px 40px rgba(0, 234, 255, 0.4);
+      transform: translateY(-5px);
+      background-color: #1c2128;
     }
 
     .card a {
       text-decoration: none;
-      color: inherit;
-      font-weight: bold;
-      font-size: 1.1rem;
-      display: block;
+      color: #c9d1d9;
+      font-weight: 600;
+      font-size: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
     }
 
-    @media (max-width: 600px) {
-      .card {
-        width: 80%;
-      }
+    .card a i {
+      font-size: 1.5rem;
+      color: #58a6ff;
+    }
 
+    @media (max-width: 500px) {
       header h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
-    }
-
-    /* Light mode adjustments */
-    body.light-mode .card {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      color: #000;
-    }
-
-    body.light-mode header {
-      background: rgba(255, 255, 255, 0.8);
-    }
-
-    body.light-mode .mode-toggle {
-      border-color: #333;
-      color: #333;
-    }
-
-    body.light-mode .mode-toggle:hover {
-      background: #333;
-      color: #fff;
     }
   </style>
 </head>
-<body data-barba="wrapper">
-  <div id="particles-js"></div>
-
-  <header data-barba="container" data-barba-namespace="home">
-    <button class="mode-toggle" onclick="toggleMode()">🌙 Toggle Mode</button>
-    <h1><i class="fas fa-tools"></i> Welcome to Toolverse</h1>
+<body>
+  <header>
+    <h1><i class="fas fa-toolbox"></i> Toolverse</h1>
   </header>
 
   <div class="intro">
-    <p>A collection of useful web-based calculators and tools.</p>
+    <p>Your all-in-one hub for online calculators and tools.</p>
   </div>
 
   <div class="tools">
     <div class="card">
-      <a href="basic.html">🧮 Basic Calculator</a>
+      <a href="basic.html">
+        <i class="fas fa-calculator"></i>
+        Basic Calculator
+      </a>
     </div>
     <div class="card">
-      <a href="age.html">🎂 Age Calculator</a>
+      <a href="age.html">
+        <i class="fas fa-birthday-cake"></i>
+        Age Calculator
+      </a>
     </div>
     <div class="card">
-      <a href="tools/bmi/">⚖️ BMI Calculator</a>
+      <a href="tools/bmi/">
+        <i class="fas fa-weight"></i>
+        BMI Calculator
+      </a>
     </div>
     <div class="card">
-      <a href="loan.html">💰 Loan Calculator</a>
+      <a href="loan.html">
+        <i class="fas fa-hand-holding-usd"></i>
+        Loan Calculator
+      </a>
+    </div>
+    <!-- Add more tools below -->
+    <div class="card">
+      <a href="discount.html">
+        <i class="fas fa-tags"></i>
+        Discount Calculator
+      </a>
+    </div>
+    <div class="card">
+      <a href="percentage.html">
+        <i class="fas fa-percentage"></i>
+        Percentage Calculator
+      </a>
     </div>
   </div>
-
-  <!-- Scripts -->
-  <script>
-    // Particles.js config
-    particlesJS("particles-js", {
-      "particles": {
-        "number": { "value": 80 },
-        "color": { "value": "#00eaff" },
-        "shape": {
-          "type": "circle",
-          "stroke": { "width": 0, "color": "#000" }
-        },
-        "opacity": { "value": 0.5 },
-        "size": { "value": 3 },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#00eaff",
-          "opacity": 0.4,
-          "width": 1
-        },
-        "move": { "enable": true, "speed": 2 }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": true, "mode": "repulse" },
-          "onclick": { "enable": true, "mode": "push" }
-        },
-        "modes": {
-          "repulse": { "distance": 100 },
-          "push": { "particles_nb": 4 }
-        }
-      },
-      "retina_detect": true
-    });
-
-    // Toggle Light/Dark Mode
-    function toggleMode() {
-      document.body.classList.toggle("light-mode");
-    }
-
-    // Barba.js page transitions
-    barba.init({
-      transitions: [{
-        name: 'fade',
-        leave(data) {
-          return gsap.to(data.current.container, {
-            opacity: 0,
-            duration: 0.5
-          });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, {
-            opacity: 0,
-            duration: 0.5
-          });
-        }
-      }]
-    });
-  </script>
-
-  <!-- GSAP for animation with Barba -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </body>
 </html>
