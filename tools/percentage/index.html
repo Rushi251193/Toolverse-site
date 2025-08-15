@@ -12,9 +12,10 @@
       color: #222;
     }
 
-    h1 {
+    h1, h2 {
       text-align: center;
-      margin-bottom: 0.3em;
+      margin-bottom: 0.5em;
+      color: #0a369d;
     }
 
     p.description {
@@ -32,6 +33,7 @@
       margin: 0 auto;
       display: flex;
       gap: 1.5em;
+      flex-wrap: wrap;
     }
 
     .calculator, .info {
@@ -39,7 +41,7 @@
       border-radius: 8px;
       box-shadow: 0 0 8px rgba(0,0,0,0.1);
       padding: 20px;
-      flex: 1;
+      flex: 1 1 300px;
     }
 
     label {
@@ -83,6 +85,70 @@
       color: #0a74da;
       min-height: 2em;
     }
+
+    /* --- Marks Percentage Calculator --- */
+    .marks-calculator {
+      display: flex;
+      justify-content: center;
+      margin-top: 3em;
+    }
+
+    .marks-card {
+      background: white;
+      border-radius: 10px;
+      padding: 25px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .marks-card label {
+      display: block;
+      font-weight: bold;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+
+    .marks-card input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+    }
+
+    .marks-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 1.5em;
+    }
+
+    .marks-buttons button {
+      flex: 1;
+      padding: 10px 15px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .marks-buttons .clear-btn {
+      background: #ffb347;
+      color: #222;
+    }
+
+    .marks-buttons button:not(.clear-btn) {
+      background: #0a74da;
+      color: white;
+    }
+
+    .marks-buttons button:hover {
+      opacity: 0.9;
+    }
   </style>
 </head>
 <body>
@@ -111,6 +177,26 @@
     </div>
   </div>
 
+  <hr style="margin: 3em 0; border: none; border-top: 2px solid #ccc;" />
+
+  <h2>Marks Percentage Calculator</h2>
+  <div class="marks-calculator">
+    <div class="marks-card">
+      <label for="scoredMarks">Scored Marks</label>
+      <input type="number" id="scoredMarks" placeholder="e.g., 75" />
+
+      <label for="totalMarks">Total Marks</label>
+      <input type="number" id="totalMarks" placeholder="e.g., 100" />
+
+      <div class="marks-buttons">
+        <button onclick="clearMarksFields()" class="clear-btn">Clear</button>
+        <button onclick="calculateMarksPercentage()">Calculate</button>
+      </div>
+
+      <div class="result" id="marksResult"></div>
+    </div>
+  </div>
+
   <script>
     function calculatePercentage() {
       const number = parseFloat(document.getElementById('numberInput').value);
@@ -125,7 +211,28 @@
       const result = (number * percentage) / 100;
       resultDiv.textContent = `${percentage}% of ${number} is ${result.toFixed(2)}`;
     }
+
+    function calculateMarksPercentage() {
+      const scored = parseFloat(document.getElementById('scoredMarks').value);
+      const total = parseFloat(document.getElementById('totalMarks').value);
+      const resultDiv = document.getElementById('marksResult');
+
+      if (isNaN(scored) || isNaN(total) || total === 0) {
+        resultDiv.textContent = "Please enter valid numbers. Total Marks should not be zero.";
+        return;
+      }
+
+      const percentage = (scored / total) * 100;
+      resultDiv.textContent = `You scored ${percentage.toFixed(2)}%`;
+    }
+
+    function clearMarksFields() {
+      document.getElementById('scoredMarks').value = '';
+      document.getElementById('totalMarks').value = '';
+      document.getElementById('marksResult').textContent = '';
+    }
   </script>
 
 </body>
 </html>
+
