@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Age Calculator - Toolverse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #58a6ff;
+      margin-bottom: 1.5em;
+    }
+
+    .calculator {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: 600;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #444c56;
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 1.5em;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .calc-btn {
+      background: #238636;
+      color: white;
+    }
+
+    .clear-btn {
+      background: #e3b341;
+      color: #161b22;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 2em;
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      color: #58a6ff;
+      min-height: 2em;
+    }
+
+    a.back-link {
+      margin-top: 3em;
+      color: #8b949e;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    a.back-link:hover {
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1><i class="fas fa-birthday-cake"></i> Age Calculator</h1>
+
+  <div class="calculator">
+    <label for="dob">Select Your Date of Birth:</label>
+    <input type="date" id="dob">
+
+    <div class="buttons">
+      <button onclick="clearAge()" class="clear-btn">Clear</button>
+      <button onclick="calculateAge()" class="calc-btn">Calculate</button>
+    </div>
+
+    <div class="result" id="ageResult"></div>
+  </div>
+
+  <a href="index.html" class="back-link">&larr; Back to Toolverse Home</a>
+
+  <script>
+    function calculateAge() {
+      const dobInput = document.getElementById('dob').value;
+      const resultDiv = document.getElementById('ageResult');
+
+      if (!dobInput) {
+        resultDiv.textContent = "Please select your date of birth.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const today = new Date();
+
+      if (dob > today) {
+        resultDiv.textContent = "Date of birth cannot be in the future.";
+        return;
+      }
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      resultDiv.textContent = `You are ${years} year(s), ${months} month(s), and ${days} day(s) old.`;
+    }
+
+    function clearAge() {
+      document.getElementById('dob').value = '';
+      document.getElementById('ageResult').textContent = '';
+    }
+  </script>
+
+</body>
+</html>
