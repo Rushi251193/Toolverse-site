@@ -1,140 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Age Calculator with Clippy Animation</title>
-  <style>
-    /* Body styling with warm gradient */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
-      color: #222;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 40px 20px;
-      box-sizing: border-box;
-      overflow-x: hidden;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Age Calculator with Floating Animation</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffb6b9 0%, #f9d976 100%);
+    color: #b94e4e;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
 
-    /* Main container */
-    #container {
-      background: rgba(255 255 255 / 0.95);
-      padding: 30px 40px;
-      border-radius: 12px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-      max-width: 450px;
-      width: 100%;
-      box-sizing: border-box;
-    }
+  #container {
+    background: #fff9f9;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    max-width: 450px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    h1 {
-      margin-top: 0;
-      font-weight: 700;
-      color: #d94f4f;
-      text-align: center;
-    }
+  h1 {
+    margin-top: 0;
+    font-weight: 700;
+    color: #cc5757;
+    text-align: center;
+  }
 
-    label, button {
-      margin: 12px 0 8px 0;
-      display: block;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #aa3d3d;
-    }
+  label, button {
+    margin: 12px 0 8px 0;
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #aa3d3d;
+  }
 
-    input[type="date"] {
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      width: 100%;
-      box-sizing: border-box;
-    }
+  input[type="date"] {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    button {
-      background: #d94f4f;
-      color: white;
-      border: none;
-      padding: 12px 0;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      width: 100%;
-      margin-bottom: 10px;
-      box-shadow: 0 5px 15px rgba(217, 79, 79, 0.5);
-      font-weight: 700;
-    }
+  button {
+    background: #cc5757;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+    box-shadow: 0 5px 15px rgba(204, 87, 87, 0.5);
+    font-weight: 700;
+  }
 
-    button:hover {
-      background: #aa3d3d;
-      box-shadow: 0 7px 20px rgba(170, 61, 61, 0.8);
-    }
+  button:hover {
+    background: #a63f3f;
+    box-shadow: 0 7px 20px rgba(166, 63, 63, 0.8);
+  }
 
-    #ageResult {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      background: rgba(255 240 240 / 0.8);
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: opacity 0.7s ease;
-      color: #6b1b1b;
-      line-height: 1.5;
-      white-space: pre-line;
-    }
+  #ageResult {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    background: #fff0f0;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #6b1b1b;
+    line-height: 1.5;
+    white-space: pre-line;
+    min-height: 100px;
+  }
 
-    /* Clippy container & animation */
-    #clippy-container {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 120px;
-      cursor: pointer;
-      animation: floatBounce 4s ease-in-out infinite;
-      z-index: 1000;
-      transition: transform 0.3s ease;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
-      background: white;
-      border-radius: 15px;
-      padding: 6px;
-    }
+  /* Floating animation container */
+  #floating-image {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    animation: floatAround 10s ease-in-out infinite;
+    cursor: default;
+    user-select: none;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    background: white;
+    padding: 5px;
+  }
 
-    #clippy-container img {
-      width: 100%;
-      height: auto;
-      user-select: none;
-      pointer-events: none;
-      display: block;
-      border-radius: 12px;
-    }
+  #floating-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+  }
 
-    @keyframes floatBounce {
-      0%, 100% {
-        transform: translateY(0) rotate(0deg);
-      }
-      25% {
-        transform: translateY(-15px) rotate(3deg);
-      }
-      50% {
-        transform: translateY(-7px) rotate(-3deg);
-      }
-      75% {
-        transform: translateY(-15px) rotate(3deg);
-      }
+  @keyframes floatAround {
+    0% {
+      transform: translate(0, 0);
     }
-
-    #clippy-container:hover {
-      animation-play-state: paused;
-      transform: scale(1.2) rotate(5deg);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    25% {
+      transform: translate(50vw, -20px);
     }
-
-  </style>
+    50% {
+      transform: translate(90vw, 15px);
+    }
+    75% {
+      transform: translate(40vw, 30px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -142,7 +134,7 @@
     <h1>Age Calculator</h1>
 
     <label for="dob">Select your Date of Birth:</label>
-    <input type="date" id="dob" />
+    <input type="date" id="dob" placeholder="dd / mm / yyyy" />
 
     <button onclick="calculateAge()">Calculate Age</button>
     <button onclick="clearAge()">Clear</button>
@@ -150,9 +142,8 @@
     <div id="ageResult"></div>
   </div>
 
-  <!-- Clippy Animation Container -->
-  <div id="clippy-container" title="Hi! Need help?">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAABkCAYAAABKZynWAAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH5AwKCgoDjwUnnAAAAgBJREFUeNrtnL1PwlAYxz+lgRGbqRGNhiNchN7ZBN/RwAhgLpa1g9GQ5cRqAH1jO6cHn3kSnz6Pf95/dA4r/8ZxluybqmYbAQAAAAAAAAAAAAAAAAAAAHDdQnL6jfL5Xb0ny6eIqgEAPz3IDnVmmu7H4RAHwcY43oYCEQBoDYjVLQKCRhZBEAUCwAn2xL+4Qggk4tq+dzV1Lo2xCPmRAA+vQpwk4JCsJ6JIUkN2fBvTt1/7ezh2/9+91Z35a6h+fnHzzx/Tr+nrsduzjjy7cLMMtMAzLOZ2T7aB9Kg7nbtJ9Gh5/TTvmcQIt/8sjPzNmvbWegWcfDxzB6me9LSN7m9BvHy8pOJzy9hB0tbMdfOqReNqF5pcrkyr9EL5vZgM9r/3MuNRK3NmsqpXb+oGc7Kz3L2q1cuwuP9mgs+1MePu90PXTgLknAXB84aBPDx+3Rhnw7OTne2Ug15viAAgdWbgQJRsO4RQLOi+uY3MCoR6mPvH+AAAAAElFTkSuQmCC" alt="Clippy" />
+  <div id="floating-image" title="I'm floating!">
+    <img src="48fa1f34-8c00-4b6a-9e01-d3a96680430f.png" alt="Floating" />
   </div>
 
 <script>
