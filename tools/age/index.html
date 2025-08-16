@@ -5,48 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Age Calculator with Clippy Animation</title>
   <style>
+    /* Body styling with softer gradient and full height */
     body {
       font-family: Arial, sans-serif;
-      margin: 20px;
-      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #a3cef1 0%, #5180e0 100%);
       color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      box-sizing: border-box;
       overflow-x: hidden;
     }
+
+    /* Main container for content */
+    #container {
+      background: rgba(255 255 255 / 0.9);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      max-width: 450px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-weight: 700;
+      color: #0d3c91;
+      text-align: center;
+    }
+
     label, button {
-      margin: 8px 0;
+      margin: 12px 0 8px 0;
       display: block;
       font-weight: 600;
+      font-size: 1rem;
+      color: #1e2c63;
     }
+
     input[type="date"] {
-      padding: 8px;
+      padding: 8px 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 1em;
-      width: 250px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
     }
+
     button {
-      background: #0052cc;
+      background: #1e3ca6;
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 6px;
-      font-size: 1em;
+      padding: 12px 0;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
       transition: background 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.4);
+      width: 100%;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(30, 60, 166, 0.4);
+      font-weight: 700;
     }
+
     button:hover {
-      background: #003d99;
-      box-shadow: 0 7px 20px rgba(0, 61, 153, 0.6);
+      background: #133084;
+      box-shadow: 0 7px 20px rgba(19, 48, 132, 0.7);
     }
+
     #ageResult {
       margin-top: 20px;
-      font-size: 1.2em;
-      background: rgba(255 255 255 / 0.7);
-      padding: 15px;
+      font-size: 1.1rem;
+      background: rgba(30 60 166 / 0.1);
+      padding: 20px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: opacity 0.7s ease;
+      color: #0d254c;
+      line-height: 1.5;
+      white-space: pre-line;
     }
 
     /* Clippy container & animation */
@@ -54,49 +93,62 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 120px;
+      width: 110px;
       cursor: pointer;
       animation: floatBounce 4s ease-in-out infinite;
       z-index: 1000;
       transition: transform 0.3s ease;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+      background: white;
+      border-radius: 15px;
+      padding: 5px;
     }
+
     #clippy-container img {
       width: 100%;
       height: auto;
       user-select: none;
       pointer-events: none;
+      display: block;
+      border-radius: 12px;
     }
+
     @keyframes floatBounce {
       0%, 100% {
         transform: translateY(0) rotate(0deg);
       }
       25% {
-        transform: translateY(-20px) rotate(3deg);
+        transform: translateY(-15px) rotate(3deg);
       }
       50% {
-        transform: translateY(-10px) rotate(-3deg);
+        transform: translateY(-7px) rotate(-3deg);
       }
       75% {
-        transform: translateY(-20px) rotate(3deg);
+        transform: translateY(-15px) rotate(3deg);
       }
     }
+
     #clippy-container:hover {
       animation-play-state: paused;
-      transform: scale(1.15) rotate(5deg);
+      transform: scale(1.2) rotate(5deg);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
     }
+
   </style>
 </head>
 <body>
 
-  <h1>Age Calculator</h1>
+  <div id="container">
+    <h1>Age Calculator</h1>
 
-  <label for="dob">Select your Date of Birth:</label>
-  <input type="date" id="dob" />
-  
-  <button onclick="calculateAge()">Calculate Age</button>
-  <button onclick="clearAge()">Clear</button>
+    <label for="dob">Select your Date of Birth:</label>
+    <input type="date" id="dob" />
 
-  <div id="ageResult"></div>
+    <button onclick="calculateAge()">Calculate Age</button>
+    <button onclick="clearAge()">Clear</button>
+
+    <div id="ageResult"></div>
+  </div>
 
   <!-- Clippy Animation Container -->
   <div id="clippy-container" title="Hi! Need help?">
@@ -138,8 +190,8 @@
     }
 
     resultDiv.innerHTML = `
-      You are ${years} years, ${months} months, and ${days} days old.<br><br>
-      <strong>Total Time (Live updating):</strong><br>
+      You are ${years} years, ${months} months, and ${days} days old.\n\n
+      Total Time (Live updating):\n
       <span id="liveTime"></span>
     `;
 
@@ -158,9 +210,9 @@
 
       const liveTimeSpan = document.getElementById('liveTime');
       liveTimeSpan.innerHTML = `
-        ${totalDays.toLocaleString()} days<br>
-        ${totalHours.toLocaleString()} hours<br>
-        ${totalMinutes.toLocaleString()} minutes<br>
+        ${totalDays.toLocaleString()} days\n
+        ${totalHours.toLocaleString()} hours\n
+        ${totalMinutes.toLocaleString()} minutes\n
         ${totalSeconds.toLocaleString()} seconds
       `;
     }, 1000);
