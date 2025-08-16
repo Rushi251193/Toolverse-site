@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Age Calculator with Clippy Animation</title>
   <style>
-    /* Body styling with softer gradient and full height */
+    /* Body styling with warm gradient */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       min-height: 100vh;
-      background: linear-gradient(135deg, #a3cef1 0%, #5180e0 100%);
+      background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
       color: #222;
       display: flex;
       justify-content: center;
@@ -20,9 +20,9 @@
       overflow-x: hidden;
     }
 
-    /* Main container for content */
+    /* Main container */
     #container {
-      background: rgba(255 255 255 / 0.9);
+      background: rgba(255 255 255 / 0.95);
       padding: 30px 40px;
       border-radius: 12px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
@@ -34,7 +34,7 @@
     h1 {
       margin-top: 0;
       font-weight: 700;
-      color: #0d3c91;
+      color: #d94f4f;
       text-align: center;
     }
 
@@ -43,7 +43,7 @@
       display: block;
       font-weight: 600;
       font-size: 1rem;
-      color: #1e2c63;
+      color: #aa3d3d;
     }
 
     input[type="date"] {
@@ -56,7 +56,7 @@
     }
 
     button {
-      background: #1e3ca6;
+      background: #d94f4f;
       color: white;
       border: none;
       padding: 12px 0;
@@ -66,24 +66,24 @@
       transition: background 0.3s ease;
       width: 100%;
       margin-bottom: 10px;
-      box-shadow: 0 5px 15px rgba(30, 60, 166, 0.4);
+      box-shadow: 0 5px 15px rgba(217, 79, 79, 0.5);
       font-weight: 700;
     }
 
     button:hover {
-      background: #133084;
-      box-shadow: 0 7px 20px rgba(19, 48, 132, 0.7);
+      background: #aa3d3d;
+      box-shadow: 0 7px 20px rgba(170, 61, 61, 0.8);
     }
 
     #ageResult {
       margin-top: 20px;
       font-size: 1.1rem;
-      background: rgba(30 60 166 / 0.1);
+      background: rgba(255 240 240 / 0.8);
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: opacity 0.7s ease;
-      color: #0d254c;
+      color: #6b1b1b;
       line-height: 1.5;
       white-space: pre-line;
     }
@@ -93,7 +93,7 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      width: 110px;
+      width: 120px;
       cursor: pointer;
       animation: floatBounce 4s ease-in-out infinite;
       z-index: 1000;
@@ -101,7 +101,7 @@
       filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
       background: white;
       border-radius: 15px;
-      padding: 5px;
+      padding: 6px;
     }
 
     #clippy-container img {
@@ -152,7 +152,7 @@
 
   <!-- Clippy Animation Container -->
   <div id="clippy-container" title="Hi! Need help?">
-    <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Clippy_official.png" alt="Clippy" />
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGYAAABkCAYAAABKZynWAAAABmJLR0QA/wD/AP+gvaeTAAAAB3RJTUUH5AwKCgoDjwUnnAAAAgBJREFUeNrtnL1PwlAYxz+lgRGbqRGNhiNchN7ZBN/RwAhgLpa1g9GQ5cRqAH1jO6cHn3kSnz6Pf95/dA4r/8ZxluybqmYbAQAAAAAAAAAAAAAAAAAAAHDdQnL6jfL5Xb0ny6eIqgEAPz3IDnVmmu7H4RAHwcY43oYCEQBoDYjVLQKCRhZBEAUCwAn2xL+4Qggk4tq+dzV1Lo2xCPmRAA+vQpwk4JCsJ6JIUkN2fBvTt1/7ezh2/9+91Z35a6h+fnHzzx/Tr+nrsduzjjy7cLMMtMAzLOZ2T7aB9Kg7nbtJ9Gh5/TTvmcQIt/8sjPzNmvbWegWcfDxzB6me9LSN7m9BvHy8pOJzy9hB0tbMdfOqReNqF5pcrkyr9EL5vZgM9r/3MuNRK3NmsqpXb+oGc7Kz3L2q1cuwuP9mgs+1MePu90PXTgLknAXB84aBPDx+3Rhnw7OTne2Ug15viAAgdWbgQJRsO4RQLOi+uY3MCoR6mPvH+AAAAAElFTkSuQmCC" alt="Clippy" />
   </div>
 
 <script>
