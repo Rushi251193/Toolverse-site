@@ -1,77 +1,108 @@
-<script>
-  let timerInterval = null;
-
-  function calculateAge() {
-    const dobInput = document.getElementById('dob').value;
-    const resultDiv = document.getElementById('ageResult');
-
-    if (!dobInput) {
-      resultDiv.textContent = "Please select your date of birth.";
-      return;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-
-    const dob = new Date(dobInput);
-    const now = new Date();
-
-    if (dob > now) {
-      resultDiv.textContent = "Date of birth cannot be in the future.";
-      return;
+    label, button {
+      margin: 5px 0;
+      display: block;
     }
-
-    // Calculate years, months, days (static, snapshot)
-    let years = now.getFullYear() - dob.getFullYear();
-    let months = now.getMonth() - dob.getMonth();
-    let days = now.getDate() - dob.getDate();
-
-    if (days < 0) {
-      months -= 1;
-      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-      days += previousMonth;
+    #ageResult {
+      margin-top: 15px;
+      font-size: 1.1em;
+      color: #333;
     }
+  </style>
+</head>
+<body>
+  <h1>Age Calculator</h1>
 
-    if (months < 0) {
-      years -= 1;
-      months += 12;
-    }
+  <label for="dob">Select your Date of Birth:</label>
+  <input type="date" id="dob" />
+  
+  <button onclick="calculateAge()">Calculate Age</button>
+  <button onclick="clearAge()">Clear</button>
 
-    // Show static age part
-    resultDiv.innerHTML = `
-      You are ${years} year(s), ${months} month(s), and ${days} day(s) old.<br><br>
-      <strong>Total time passed since birth (live updating):</strong><br>
-      <span id="liveTime"></span>
-    `;
+  <div id="ageResult"></div>
 
-    // Clear any existing timer
-    if (timerInterval) {
-      clearInterval(timerInterval);
-    }
+  <script>
+    let timerInterval = null;
 
-    // Start live updating every second
-    timerInterval = setInterval(() => {
-      const nowLive = new Date();
-      const diffMs = nowLive - dob;
+    function calculateAge() {
+      const dobInput = document.getElementById('dob').value;
+      const resultDiv = document.getElementById('ageResult');
 
-      const totalSeconds = Math.floor(diffMs / 1000);
-      const totalMinutes = Math.floor(totalSeconds / 60);
-      const totalHours = Math.floor(totalMinutes / 60);
-      const totalDays = Math.floor(totalHours / 24);
+      if (!dobInput) {
+        resultDiv.textContent = "Please select your date of birth.";
+        return;
+      }
 
-      const liveTimeSpan = document.getElementById('liveTime');
-      liveTimeSpan.innerHTML = `
-        ${totalDays.toLocaleString()} day(s)<br>
-        ${totalHours.toLocaleString()} hour(s)<br>
-        ${totalMinutes.toLocaleString()} minute(s)<br>
-        ${totalSeconds.toLocaleString()} second(s)
+      const dob = new Date(dobInput);
+      const now = new Date();
+
+      if (dob > now) {
+        resultDiv.textContent = "Date of birth cannot be in the future.";
+        return;
+      }
+
+      let years = now.getFullYear() - dob.getFullYear();
+      let months = now.getMonth() - dob.getMonth();
+      let days = now.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months -= 1;
+        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += previousMonth;
+      }
+
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
+
+      resultDiv.innerHTML = `
+        You are ${years} year(s), ${months} month(s), and ${days} day(s) old.<br><br>
+        <strong>Total time passed since birth (live updating):</strong><br>
+        <span id="liveTime"></span>
       `;
-    }, 1000);
-  }
 
-  function clearAge() {
-    document.getElementById('dob').value = '';
-    document.getElementById('ageResult').textContent = '';
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+
+      timerInterval = setInterval(() => {
+        const nowLive = new Date();
+        const diffMs = nowLive - dob;
+
+        const totalSeconds = Math.floor(diffMs / 1000);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+
+        const liveTimeSpan = document.getElementById('liveTime');
+        liveTimeSpan.innerHTML = `
+          ${totalDays.toLocaleString()} day(s)<br>
+          ${totalHours.toLocaleString()} hour(s)<br>
+          ${totalMinutes.toLocaleString()} minute(s)<br>
+          ${totalSeconds.toLocaleString()} second(s)
+        `;
+      }, 1000);
     }
-  }
-</script>
+
+    function clearAge() {
+      document.getElementById('dob').value = '';
+      document.getElementById('ageResult').textContent = '';
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+  </script>
+</body>
+</html>
