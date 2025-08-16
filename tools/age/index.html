@@ -3,189 +3,178 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Age Calculator - Dark Mode</title>
+  <title>Age Calculator with Clippy Animation</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 20px;
-      background: linear-gradient(135deg, #2c3e50, #4ca1af);
-      color: #eee;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      flex-direction: column;
-      padding: 20px;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      color: #222;
+      overflow-x: hidden;
     }
-
-    h1 {
-      color: #fff;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
-      margin-bottom: 30px;
-    }
-
-    label {
+    label, button {
+      margin: 8px 0;
+      display: block;
       font-weight: 600;
-      margin-bottom: 8px;
-      color: #ddd;
     }
-
     input[type="date"] {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      outline: none;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       font-size: 1em;
       width: 250px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-      background-color: #3a5068;
-      color: #eee;
     }
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-      cursor: pointer;
-    }
-
     button {
-      background-color: #56ab2f;
+      background: #0052cc;
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 25px;
+      padding: 12px 20px;
+      border-radius: 6px;
       font-size: 1em;
-      font-weight: bold;
-      margin: 10px 10px 20px 0;
       cursor: pointer;
-      box-shadow: 0 6px 10px rgba(86,171,47,0.6);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+      transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.4);
     }
-
     button:hover {
-      background-color: #3f8a16;
-      box-shadow: 0 8px 15px rgba(63,138,22,0.8);
+      background: #003d99;
+      box-shadow: 0 7px 20px rgba(0, 61, 153, 0.6);
     }
-
-    button:active {
-      transform: scale(0.95);
-    }
-
     #ageResult {
-      background-color: rgba(58, 80, 104, 0.85);
-      padding: 20px 25px;
-      border-radius: 15px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+      margin-top: 20px;
       font-size: 1.2em;
-      color: #cee4c9;
-      max-width: 350px;
-      text-align: center;
+      background: rgba(255 255 255 / 0.7);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: opacity 0.7s ease;
+    }
+
+    /* Clippy container & animation */
+    #clippy-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 120px;
+      cursor: pointer;
+      animation: floatBounce 4s ease-in-out infinite;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    #clippy-container img {
+      width: 100%;
+      height: auto;
       user-select: none;
-      opacity: 0;
-      transition: opacity 0.6s ease-in-out;
+      pointer-events: none;
     }
-
-    #ageResult.show {
-      opacity: 1;
+    @keyframes floatBounce {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-20px) rotate(3deg);
+      }
+      50% {
+        transform: translateY(-10px) rotate(-3deg);
+      }
+      75% {
+        transform: translateY(-20px) rotate(3deg);
+      }
     }
-
-    #liveTime {
-      font-weight: 700;
-      color: #b8e994;
+    #clippy-container:hover {
+      animation-play-state: paused;
+      transform: scale(1.15) rotate(5deg);
     }
   </style>
 </head>
 <body>
+
   <h1>Age Calculator</h1>
 
   <label for="dob">Select your Date of Birth:</label>
   <input type="date" id="dob" />
-
-  <div>
-    <button onclick="calculateAge()">Calculate Age</button>
-    <button onclick="clearAge()">Clear</button>
-  </div>
+  
+  <button onclick="calculateAge()">Calculate Age</button>
+  <button onclick="clearAge()">Clear</button>
 
   <div id="ageResult"></div>
 
-  <script>
-    let timerInterval = null;
+  <!-- Clippy Animation Container -->
+  <div id="clippy-container" title="Hi! Need help?">
+    <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Clippy_official.png" alt="Clippy" />
+  </div>
 
-    function calculateAge() {
-      const dobInput = document.getElementById('dob').value;
-      const resultDiv = document.getElementById('ageResult');
+<script>
+  let timerInterval = null;
 
-      if (!dobInput) {
-        resultDiv.textContent = "Please select your date of birth.";
-        resultDiv.classList.add('show');
-        return;
-      }
+  function calculateAge() {
+    const dobInput = document.getElementById('dob').value;
+    const resultDiv = document.getElementById('ageResult');
 
-      const dob = new Date(dobInput);
-      const now = new Date();
+    if (!dobInput) {
+      resultDiv.textContent = "Please select your date of birth.";
+      return;
+    }
 
-      if (dob > now) {
-        resultDiv.textContent = "Date of birth cannot be in the future.";
-        resultDiv.classList.add('show');
-        return;
-      }
+    const dob = new Date(dobInput);
+    const now = new Date();
 
-      let years = now.getFullYear() - dob.getFullYear();
-      let months = now.getMonth() - dob.getMonth();
-      let days = now.getDate() - dob.getDate();
+    if (dob > now) {
+      resultDiv.textContent = "Date of birth cannot be in the future.";
+      return;
+    }
 
-      if (days < 0) {
-        months -= 1;
-        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        days += previousMonth;
-      }
+    let years = now.getFullYear() - dob.getFullYear();
+    let months = now.getMonth() - dob.getMonth();
+    let days = now.getDate() - dob.getDate();
 
-      if (months < 0) {
-        years -= 1;
-        months += 12;
-      }
+    if (days < 0) {
+      months -= 1;
+      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      days += previousMonth;
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
 
-      resultDiv.innerHTML = `
-        You are <strong>${years}</strong> year(s), <strong>${months}</strong> month(s), and <strong>${days}</strong> day(s) old.<br><br>
-        <strong>Total time passed since birth (live updating):</strong><br>
-        <span id="liveTime"></span>
+    resultDiv.innerHTML = `
+      You are ${years} years, ${months} months, and ${days} days old.<br><br>
+      <strong>Total Time (Live updating):</strong><br>
+      <span id="liveTime"></span>
+    `;
+
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(() => {
+      const nowLive = new Date();
+      const diffMs = nowLive - dob;
+
+      const totalSeconds = Math.floor(diffMs / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const totalDays = Math.floor(totalHours / 24);
+
+      const liveTimeSpan = document.getElementById('liveTime');
+      liveTimeSpan.innerHTML = `
+        ${totalDays.toLocaleString()} days<br>
+        ${totalHours.toLocaleString()} hours<br>
+        ${totalMinutes.toLocaleString()} minutes<br>
+        ${totalSeconds.toLocaleString()} seconds
       `;
+    }, 1000);
+  }
 
-      resultDiv.classList.add('show');
-
-      if (timerInterval) {
-        clearInterval(timerInterval);
-      }
-
-      timerInterval = setInterval(() => {
-        const nowLive = new Date();
-        const diffMs = nowLive - dob;
-
-        const totalSeconds = Math.floor(diffMs / 1000);
-        const totalMinutes = Math.floor(totalSeconds / 60);
-        const totalHours = Math.floor(totalMinutes / 60);
-        const totalDays = Math.floor(totalHours / 24);
-
-        const liveTimeSpan = document.getElementById('liveTime');
-        liveTimeSpan.innerHTML = `
-          ${totalDays.toLocaleString()} day(s)<br>
-          ${totalHours.toLocaleString()} hour(s)<br>
-          ${totalMinutes.toLocaleString()} minute(s)<br>
-          ${totalSeconds.toLocaleString()} second(s)
-        `;
-      }, 1000);
+  function clearAge() {
+    document.getElementById('dob').value = '';
+    document.getElementById('ageResult').textContent = '';
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
     }
+  }
+</script>
 
-    function clearAge() {
-      document.getElementById('dob').value = '';
-      const resultDiv = document.getElementById('ageResult');
-      resultDiv.textContent = '';
-      resultDiv.classList.remove('show');
-      if (timerInterval) {
-        clearInterval(timerInterval);
-        timerInterval = null;
-      }
-    }
-  </script>
 </body>
 </html>
