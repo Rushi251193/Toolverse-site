@@ -6,122 +6,134 @@
   <title>Age Calculator</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #a2d5f2, #07689f);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+      color: #222;
+      overflow-x: hidden;
     }
-
-    .container {
-      background: rgba(255, 255, 255, 0.9);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      width: 300px;
+    label, button {
+      margin: 8px 0;
+      display: block;
+      font-weight: 600;
     }
-
-    h1 {
-      margin: 0 0 20px;
-      color: #07689f;
-    }
-
     input[type="date"] {
-      padding: 10px;
-      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      margin-bottom: 15px;
+      font-size: 1em;
+      width: 250px;
     }
-
     button {
-      background: #07689f;
+      background: #0052cc;
       color: white;
       border: none;
-      padding: 10px;
-      width: 100%;
-      border-radius: 8px;
-      font-size: 1rem;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-size: 1em;
       cursor: pointer;
       transition: background 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 82, 204, 0.4);
     }
-
     button:hover {
-      background: #05445e;
+      background: #003d99;
+      box-shadow: 0 7px 20px rgba(0, 61, 153, 0.6);
     }
-
-    #result {
+    #ageResult {
       margin-top: 20px;
-      font-size: 1rem;
-      color: #05445e;
-    }
-
-    /* Simple water ripple animation */
-    .ripple {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      animation: ripple 6s infinite linear;
-      top: -50%;
-      left: -50%;
-      z-index: 0;
-    }
-
-    @keyframes ripple {
-      0% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.2); opacity: 0.3; }
-      100% { transform: scale(1); opacity: 0.5; }
+      font-size: 1.2em;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: opacity 0.7s ease;
     }
   </style>
 </head>
 <body>
-  <div class="ripple"></div>
 
-  <div class="container">
-    <h1>Age Calculator</h1>
-    <input type="date" id="dob" />
-    <button onclick="calculateAge()">Calculate</button>
-    <div id="result"></div>
-  </div>
+  <h1>Age Calculator</h1>
 
-  <script>
-    function calculateAge() {
-      const dob = new Date(document.getElementById('dob').value);
-      const now = new Date();
-      const result = document.getElementById('result');
+  <label for="dob">Select your Date of Birth:</label>
+  <input type="date" id="dob" />
+  
+  <button onclick="calculateAge()">Calculate Age</button>
+  <button onclick="clearAge()">Clear</button>
 
-      if (!dob || isNaN(dob)) {
-        result.textContent = "Please select a valid date.";
-        return;
-      }
+  <div id="ageResult"></div>
 
-      if (dob > now) {
-        result.textContent = "Date of birth cannot be in the future.";
-        return;
-      }
+<script>
+  let timerInterval = null;
 
-      let years = now.getFullYear() - dob.getFullYear();
-      let months = now.getMonth() - dob.getMonth();
-      let days = now.getDate() - dob.getDate();
+  function calculateAge() {
+    const dobInput = document.getElementById('dob').value;
+    const resultDiv = document.getElementById('ageResult');
 
-      if (days < 0) {
-        months--;
-        days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-      }
-      if (months < 0) {
-        years--;
-        months += 12;
-      }
-
-      result.textContent = `You are ${years} years, ${months} months, and ${days} days old.`;
+    if (!dobInput) {
+      resultDiv.textContent = "Please select your date of birth.";
+      return;
     }
-  </script>
+
+    const dob = new Date(dobInput);
+    const now = new Date();
+
+    if (dob > now) {
+      resultDiv.textContent = "Date of birth cannot be in the future.";
+      return;
+    }
+
+    let years = now.getFullYear() - dob.getFullYear();
+    let months = now.getMonth() - dob.getMonth();
+    let days = now.getDate() - dob.getDate();
+
+    if (days < 0) {
+      months -= 1;
+      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      days += previousMonth;
+    }
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    resultDiv.innerHTML = `
+      You are ${years} years, ${months} months, and ${days} days old.<br><br>
+      <strong>Total Time (Live updating):</strong><br>
+      <span id="liveTime"></span>
+    `;
+
+    if (timerInterval) {
+      clearInterval(timerInterval);
+    }
+
+    timerInterval = setInterval(() => {
+      const nowLive = new Date();
+      const diffMs = nowLive - dob;
+
+      const totalSeconds = Math.floor(diffMs / 1000);
+      const totalMinutes = Math.floor(totalSeconds / 60);
+      const totalHours = Math.floor(totalMinutes / 60);
+      const totalDays = Math.floor(totalHours / 24);
+
+      const liveTimeSpan = document.getElementById('liveTime');
+      liveTimeSpan.innerHTML = `
+        ${totalDays.toLocaleString()} days<br>
+        ${totalHours.toLocaleString()} hours<br>
+        ${totalMinutes.toLocaleString()} minutes<br>
+        ${totalSeconds.toLocaleString()} seconds
+      `;
+    }, 1000);
+  }
+
+  function clearAge() {
+    document.getElementById('dob').value = '';
+    document.getElementById('ageResult').textContent = '';
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+  }
+</script>
+
 </body>
 </html>
