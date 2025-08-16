@@ -1,132 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Age Calculator with Floating Animation</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffb6b9 0%, #f9d976 100%);
-    color: #b94e4e;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 50px 20px;
-    box-sizing: border-box;
-    overflow-x: hidden;
-  }
-
-  #container {
-    background: #fff9f9;
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    max-width: 450px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  h1 {
-    margin-top: 0;
-    font-weight: 700;
-    color: #cc5757;
-    text-align: center;
-  }
-
-  label, button {
-    margin: 12px 0 8px 0;
-    display: block;
-    font-weight: 600;
-    font-size: 1rem;
-    color: #aa3d3d;
-  }
-
-  input[type="date"] {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  button {
-    background: #cc5757;
-    color: white;
-    border: none;
-    padding: 12px 0;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
-    margin-bottom: 10px;
-    box-shadow: 0 5px 15px rgba(204, 87, 87, 0.5);
-    font-weight: 700;
-  }
-
-  button:hover {
-    background: #a63f3f;
-    box-shadow: 0 7px 20px rgba(166, 63, 63, 0.8);
-  }
-
-  #ageResult {
-    margin-top: 20px;
-    font-size: 1.1rem;
-    background: #fff0f0;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    color: #6b1b1b;
-    line-height: 1.5;
-    white-space: pre-line;
-    min-height: 100px;
-  }
-
-  /* Floating animation container */
-  #floating-image {
-    position: fixed;
-    width: 100px;
-    height: 100px;
-    bottom: 20px;
-    left: 20px;
-    z-index: 1000;
-    animation: floatAround 10s ease-in-out infinite;
-    cursor: default;
-    user-select: none;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    background: white;
-    padding: 5px;
-  }
-
-  #floating-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 15px;
-  }
-
-  @keyframes floatAround {
-    0% {
-      transform: translate(0, 0);
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Calculator with Water Effects</title>
+  <style>
+    :root {
+      --bg-day: linear-gradient(to bottom, #a2d5f2 0%, #07689f 100%);
+      --bg-night: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
     }
-    25% {
-      transform: translate(50vw, -20px);
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #b94e4e;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px 20px;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
+      background: var(--bg-day);
+      transition: background 1s ease;
     }
-    50% {
-      transform: translate(90vw, 15px);
+
+    #container {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      max-width: 450px;
+      width: 100%;
+      box-sizing: border-box;
+      z-index: 2;
+      position: relative;
     }
-    75% {
-      transform: translate(40vw, 30px);
+
+    h1 {
+      margin-top: 0;
+      font-weight: 700;
+      color: #07689f;
+      text-align: center;
     }
-    100% {
-      transform: translate(0, 0);
+
+    label, button {
+      margin: 12px 0 8px 0;
+      display: block;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #05445e;
     }
-  }
-</style>
+
+    input[type="date"] {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #07689f;
+      color: white;
+      border: none;
+      padding: 12px 0;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      width: 100%;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(7, 104, 159, 0.5);
+      font-weight: 700;
+    }
+
+    button:hover {
+      background: #05445e;
+      box-shadow: 0 7px 20px rgba(5, 68, 94, 0.8);
+    }
+
+    #ageResult {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      background: #e0f7ff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      color: #033e6b;
+      line-height: 1.5;
+      white-space: pre-line;
+      min-height: 100px;
+    }
+
+    #toggleMode {
+      margin-top: 10px;
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+    }
+
+    .waves {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .wave {
+      position: absolute;
+      width: 200%;
+      height: 100%;
+      background-repeat: repeat-x;
+      background-size: 50% 100%;
+      opacity: 0.6;
+      animation: waveMove 10s linear infinite;
+    }
+
+    .wave1 {
+      background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path fill="%2307698f" d="M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z"></path></svg>');
+      bottom: 0;
+      animation-delay: 0s;
+    }
+
+    .wave2 {
+      background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path fill="%2305445e" d="M0,0 C400,80 800,20 1200,100 L1200,0 L0,0 Z"></path></svg>');
+      bottom: 10px;
+      animation-delay: -5s;
+    }
+
+    @keyframes waveMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .bubbles {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: bubbleRise 10s infinite ease-in;
+    }
+
+    @keyframes bubbleRise {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -138,86 +186,118 @@
 
     <button onclick="calculateAge()">Calculate Age</button>
     <button onclick="clearAge()">Clear</button>
+    <button id="toggleMode" onclick="toggleTheme()">Toggle Day/Night</button>
 
     <div id="ageResult"></div>
   </div>
 
-  <div id="floating-image" title="I'm floating!">
-    <img src="48fa1f34-8c00-4b6a-9e01-d3a96680430f.png" alt="Floating" />
+  <div class="waves">
+    <div class="wave wave1" id="wave1"></div>
+    <div class="wave wave2" id="wave2"></div>
   </div>
 
-<script>
-  let timerInterval = null;
+  <div class="bubbles" id="bubbles"></div>
 
-  function calculateAge() {
-    const dobInput = document.getElementById('dob').value;
-    const resultDiv = document.getElementById('ageResult');
+  <script>
+    let timerInterval = null;
+    let isNight = false;
 
-    if (!dobInput) {
-      resultDiv.textContent = "Please select your date of birth.";
-      return;
-    }
+    function calculateAge() {
+      const dobInput = document.getElementById('dob').value;
+      const resultDiv = document.getElementById('ageResult');
 
-    const dob = new Date(dobInput);
-    const now = new Date();
+      if (!dobInput) {
+        resultDiv.textContent = "Please select your date of birth.";
+        return;
+      }
 
-    if (dob > now) {
-      resultDiv.textContent = "Date of birth cannot be in the future.";
-      return;
-    }
+      const dob = new Date(dobInput);
+      const now = new Date();
 
-    let years = now.getFullYear() - dob.getFullYear();
-    let months = now.getMonth() - dob.getMonth();
-    let days = now.getDate() - dob.getDate();
+      if (dob > now) {
+        resultDiv.textContent = "Date of birth cannot be in the future.";
+        return;
+      }
 
-    if (days < 0) {
-      months -= 1;
-      const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-      days += previousMonth;
-    }
-    if (months < 0) {
-      years -= 1;
-      months += 12;
-    }
+      let years = now.getFullYear() - dob.getFullYear();
+      let months = now.getMonth() - dob.getMonth();
+      let days = now.getDate() - dob.getDate();
 
-    resultDiv.innerHTML = `
-      You are ${years} years, ${months} months, and ${days} days old.\n\n
-      Total Time (Live updating):\n
-      <span id="liveTime"></span>
-    `;
+      if (days < 0) {
+        months -= 1;
+        const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += previousMonth;
+      }
+      if (months < 0) {
+        years -= 1;
+        months += 12;
+      }
 
-    if (timerInterval) {
-      clearInterval(timerInterval);
-    }
-
-    timerInterval = setInterval(() => {
-      const nowLive = new Date();
-      const diffMs = nowLive - dob;
-
-      const totalSeconds = Math.floor(diffMs / 1000);
-      const totalMinutes = Math.floor(totalSeconds / 60);
-      const totalHours = Math.floor(totalMinutes / 60);
-      const totalDays = Math.floor(totalHours / 24);
-
-      const liveTimeSpan = document.getElementById('liveTime');
-      liveTimeSpan.innerHTML = `
-        ${totalDays.toLocaleString()} days\n
-        ${totalHours.toLocaleString()} hours\n
-        ${totalMinutes.toLocaleString()} minutes\n
-        ${totalSeconds.toLocaleString()} seconds
+      resultDiv.innerHTML = `
+        You are ${years} years, ${months} months, and ${days} days old.\n\n
+        Total Time (Live updating):\n
+        <span id="liveTime"></span>
       `;
-    }, 1000);
-  }
 
-  function clearAge() {
-    document.getElementById('dob').value = '';
-    document.getElementById('ageResult').textContent = '';
-    if (timerInterval) {
-      clearInterval(timerInterval);
-      timerInterval = null;
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+
+      timerInterval = setInterval(() => {
+        const nowLive = new Date();
+        const diffMs = nowLive - dob;
+
+        const totalSeconds = Math.floor(diffMs / 1000);
+        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalDays = Math.floor(totalHours / 24);
+
+        const liveTimeSpan = document.getElementById('liveTime');
+        liveTimeSpan.innerHTML = `
+          ${totalDays.toLocaleString()} days\n
+          ${totalHours.toLocaleString()} hours\n
+          ${totalMinutes.toLocaleString()} minutes\n
+          ${totalSeconds.toLocaleString()} seconds
+        `;
+      }, 1000);
     }
-  }
-</script>
 
+    function clearAge() {
+      document.getElementById('dob').value
+          function clearAge() {
+      document.getElementById('dob').value = '';
+      document.getElementById('ageResult').textContent = '';
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function toggleTheme() {
+      isNight = !isNight;
+      document.body.style.background = isNight
+        ? getComputedStyle(document.documentElement).getPropertyValue('--bg-night')
+        : getComputedStyle(document.documentElement).getPropertyValue('--bg-day');
+
+      document.getElementById('wave1').style.backgroundImage = isNight
+        ? "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 1200 120\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"%23203a43\" d=\"M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z\"></path></svg>')"
+        : "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 1200 120\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"%2307698f\" d=\"M0,0 C300,100 900,0 1200,100 L1200,0 L0,0 Z\"></path></svg>')";
+
+      document.getElementById('wave2').style.backgroundImage = isNight
+        ? "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 1200 120\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"%230f2027\" d=\"M0,0 C400,80 800,20 1200,100 L1200,0 L0,0 Z\"></path></svg>')"
+        : "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 1200 120\" xmlns=\"http://www.w3.org/2000/svg\"><path fill=\"%2305445e\" d=\"M0,0 C400,80 800,20 1200,100 L1200,0 L0,0 Z\"></path></svg>')";
+    }
+
+    // Generate bubbles
+    const bubbleContainer = document.getElementById('bubbles');
+    for (let i = 0; i < 30; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.animationDuration = `${5 + Math.random() * 5}s`;
+      bubble.style.width = bubble.style.height = `${10 + Math.random() * 20}px`;
+      bubbleContainer.appendChild(bubble);
+    }
+  </script>
 </body>
 </html>
